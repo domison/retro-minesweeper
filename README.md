@@ -1,46 +1,39 @@
-# Getting Started with Create React App
+# Retro Minesweeper with React, TS & SASS [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This little todo app is the first project I have built using vanilla JS.
 
-## Available Scripts
+## Purpose
 
-In the project directory, you can run:
+This project is dedicated to my father, who's supportive of my career change.
+I vividly remembering him confessing to me once when I was staying over,
+that he sometimes really enjoys playing minesweeper in his home office.
 
-### `npm start`
+So here you go, Pops, a retro Minesweeper clone for you to play on your smartphone.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+### Key concepts:
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+- React Hooks & Router
+- Typescript Enum types & Interfaces
+- Utility-First-Framework TailwindCSS
+- SASS/SCSS mixins & variables
+- CSS Grid, Flexbox
 
-### `npm test`
+### Languages used:
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+ReactJS / JSX / NodeJS / SASS / TailwindCSS
 
-### `npm run build`
+### Tools used:
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+VSCode, EsLint, Prettier, Git, Chrome DevTools
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### Live Demo
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+[Find a demo of the app @doms.world](https://doms.world/minesweeper)
 
-### `npm run eject`
+## License
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+This project is open source and available under the [MIT License](LICENSE).
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+---
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+My appreciation goes out to [Justin Kim](https://www.linkedin.com/in/justinkimpro/) for the inspiration and guidance he provided.
