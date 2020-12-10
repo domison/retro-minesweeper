@@ -1,13 +1,10 @@
+@import '../../styles/index.scss';
+
 .Smiley {
   width: 52px;
   height: 52px;
   font-size: 35px;
-  border-width: 4px;
-  border-style: solid;
-  border-right-color: #7b7b7b;
-  border-bottom-color: #7b7b7b;
-  border-left-color: white;
-  border-top-color: white;
+  @include borders;
 
   display: flex;
   justify-content: center;
