@@ -1,5 +1,5 @@
 import React, { ReactNode } from 'react';
-import { CellState, CellValue } from '../../types';
+import { Background, CellState, CellValue } from '../../types';
 import './Field.scss';
 
 interface IField {
@@ -7,6 +7,7 @@ interface IField {
   col: number;
   state: CellState;
   value: CellValue;
+  bgColor: Background;
   onClick: (
     row_: number,
     col_: number
@@ -24,6 +25,7 @@ const Field: React.FC<IField> = ({
   col,
   state,
   value,
+  bgColor,
   onClick,
   onContextMenu,
   onMouseDown,
@@ -53,7 +55,7 @@ const Field: React.FC<IField> = ({
 
   return (
     <div
-      className={`Field state-${state} value-${value}`}
+      className={`Field state-${state} value-${value} bgColor-${bgColor}`}
       onClick={onClick(row, col)}
       onContextMenu={onContextMenu(row, col)}
       onMouseDown={onMouseDown}
@@ -63,5 +65,4 @@ const Field: React.FC<IField> = ({
     </div>
   );
 };
-
 export default Field;

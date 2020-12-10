@@ -17,7 +17,13 @@ export enum CellState {
   flagged,
 }
 
-export type Cell = { value: CellValue; state: CellState };
+export enum Background {
+  neutral,
+  red,
+  green,
+}
+
+export type Cell = { value: CellValue; state: CellState; bgColor: Background };
 
 export enum Emoji {
   reverse = '🙃',

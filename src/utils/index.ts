@@ -1,5 +1,5 @@
 import { MAX_COLS, MAX_ROWS, NO_OF_BOMBS } from '../constants';
-import { Cell, CellState, CellValue } from '../types';
+import { Background, Cell, CellState, CellValue } from '../types';
 
 const grabAllAdjacentCells = (
   cells: Cell[][],
@@ -58,6 +58,7 @@ export const generateCells = (): Cell[][] => {
       cells[row].push({
         value: CellValue.none,
         state: CellState.hidden,
+        bgColor: Background.neutral,
       });
     }
   }

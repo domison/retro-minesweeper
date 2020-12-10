@@ -5,7 +5,7 @@ import './App.scss';
 
 import { generateCells, openMultipleCells } from '../../utils';
 import Field from '../Field';
-import { Cell, CellState, CellValue, Emoji } from '../../types';
+import { Background, Cell, CellState, CellValue, Emoji } from '../../types';
 
 const App: React.FC = () => {
   const [cells, setCells] = useState<Cell[][]>(generateCells());
@@ -13,16 +13,27 @@ const App: React.FC = () => {
   const [time, setTime] = useState<number>(0);
   const [timeRuns, setTimeRuns] = useState<boolean>(false);
   const [flags, setFlags] = useState<number>(10);
+  const [hasLost, setHasLost] = useState<boolean>(false);
+  const [hasWon, setHasWon] = useState<boolean>(false);
+
+  // TODO: See whats rendering so often and fix issue -> its probably the timer???
+  // TODO: Test win condition and scenario
+  // TODO: Refactor code: Custom hooks, more DRY, faster function, more components
+  // TODO: Rethink state management
+  // TODO: Add high score pane
+  // TODO: Add difficulties
+  // TODO: Add Option tab
+  // TODO: Implement React Router for Menu
 
   const handleEvent = (
     event: React.MouseEvent<HTMLDivElement, MouseEvent>
   ): void => {
     event.preventDefault();
-    if (event.type === 'mousedown') {
+    if (event.type === 'mousedown' && !(smiley === Emoji.angry)) {
       setSmiley(Emoji.nervous);
     }
 
-    if (event.type === 'mouseup') {
+    if (event.type === 'mouseup' && !(smiley === Emoji.angry)) {
       setSmiley(Emoji.smile);
     }
   };
@@ -34,7 +45,7 @@ const App: React.FC = () => {
 
     const clickedCell = cells[row_][col_];
 
-    if (clickedCell.state !== CellState.hidden) {
+    if (clickedCell.state !== CellState.hidden || hasLost) {
       return;
     }
 
@@ -45,16 +56,18 @@ const App: React.FC = () => {
     let newCells = cells.slice();
 
     if (clickedCell.value === CellValue.bomb) {
-      // TODO: Let game be lost
+      setHasLost(true);
+      newCells[row_][col_].bgColor = Background.red;
+      newCells = showAllBombs();
+      setCells(newCells);
       return;
-    }
-
-    if (clickedCell.value !== CellValue.none) {
+    } else if (clickedCell.value === CellValue.none) {
+      newCells = openMultipleCells(newCells, row_, col_);
+      return;
+    } else {
       newCells[row_][col_].state = CellState.revealed;
-      return;
     }
 
-    newCells = openMultipleCells(newCells, row_, col_);
     setCells(newCells);
   };
 
@@ -77,6 +90,7 @@ const App: React.FC = () => {
     if (clickedCell.state === CellState.revealed) {
       return;
     }
+
     if (clickedCell.state === CellState.flagged) {
       newCells[row_][col_].state = CellState.hidden;
       setFlags(flags + 1);
@@ -92,11 +106,13 @@ const App: React.FC = () => {
       setSmiley(Emoji.bored);
       setTimeRuns(false);
     }
-    if (smiley === Emoji.bored) {
+    if (smiley === Emoji.bored || hasLost || hasWon) {
       setTimeRuns(false);
       setTime(0);
       setFlags(10);
       setCells(generateCells());
+      setHasLost(false);
+      setHasWon(false);
       setSmiley(Emoji.reverse);
     }
   };
@@ -104,7 +120,7 @@ const App: React.FC = () => {
   useEffect(() => {
     if (timeRuns && time < 999) {
       const timer = setInterval(() => {
-        setTime(time + 1);
+        setTime((time) => time + 1);
       }, 1000);
 
       return () => {
@@ -113,21 +129,75 @@ const App: React.FC = () => {
     }
   }, [timeRuns, time]);
 
+  useEffect(() => {
+    if (hasLost) {
+      setSmiley(Emoji.angry);
+      setTimeRuns(false);
+    }
+  }, [hasLost]);
+
+  useEffect(() => {
+    if (hasWon) {
+      setSmiley(Emoji.cool);
+      setTimeRuns(false);
+    }
+  }, [hasWon]);
+
   const renderCells = (): React.ReactNode => {
-    return cells.map((row, rowIndex) =>
-      row.map((cell, colIndex) => (
-        <Field
-          key={`${rowIndex}-${colIndex}`}
-          row={rowIndex}
-          col={colIndex}
-          state={cell.state}
-          value={cell.value}
-          onClick={handleCellClick}
-          onContextMenu={handleCellContext}
-          onMouseDown={handleEvent}
-          onMouseUp={handleEvent}
-        />
-      ))
+    let winCount = 0;
+    let probeWin = 0;
+
+    const newCells = cells.map((row, rowIndex) =>
+      row.map((cell, colIndex) => {
+        if (cell.value === 0) {
+          winCount++;
+        }
+        if (
+          cell.value === CellValue.none &&
+          cell.state === CellState.revealed
+        ) {
+          probeWin++;
+        }
+
+        return (
+          <Field
+            key={`${rowIndex}-${colIndex}`}
+            row={rowIndex}
+            col={colIndex}
+            state={cell.state}
+            value={cell.value}
+            bgColor={cell.bgColor}
+            onClick={handleCellClick}
+            onContextMenu={handleCellContext}
+            onMouseDown={handleEvent}
+            onMouseUp={handleEvent}
+          />
+        );
+      })
+    );
+    if (winCount === probeWin) {
+      setHasWon(true);
+    }
+    return newCells;
+  };
+
+  const showAllBombs = (): Cell[][] => {
+    const currentCells = cells.slice();
+    return currentCells.map((row) =>
+      row.map((cell) => {
+        if (cell.value === CellValue.bomb && cell.state === CellState.flagged) {
+          cell = {
+            ...cell,
+            bgColor: Background.green,
+          };
+        }
+
+        if (cell.value === CellValue.bomb) {
+          cell = { ...cell, state: CellState.revealed };
+        }
+
+        return cell;
+      })
     );
   };
 
