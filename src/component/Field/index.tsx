@@ -19,6 +19,7 @@ const Field: React.FC<IField> = ({ row, col, state, value }) => {
           </span>
         );
       }
+      return value;
     } else if (state === CellState.flagged) {
       return (
         <span role="img" aria-label="flag">
