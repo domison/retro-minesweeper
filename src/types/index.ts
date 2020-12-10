@@ -21,6 +21,7 @@ export type Cell = { value: CellValue; state: CellState };
 
 export enum Emoji {
   reverse = '🙃',
+  bored = '😴',
   smile = '😆',
   nervous = '😮',
   cool = '😎',

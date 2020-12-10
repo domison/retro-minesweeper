@@ -7,7 +7,7 @@ interface IField {
   col: number;
   state: CellState;
   value: CellValue;
-  onClick: (event: React.MouseEvent) => void;
+  onClick: (row_: number, col_: number) => (event: React.MouseEvent) => void;
   onMouseDown: (event: React.MouseEvent) => void;
   onMouseUp: (event: React.MouseEvent) => void;
 }
@@ -48,7 +48,7 @@ const Field: React.FC<IField> = ({
       className={`Field ${
         state === CellState.hidden ? 'hidden' : 'revealed'
       } value-${value}`}
-      onClick={onClick}
+      onClick={onClick(row, col)}
       onMouseDown={onMouseDown}
       onMouseUp={onMouseUp}
     >

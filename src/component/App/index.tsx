@@ -11,6 +11,7 @@ const App: React.FC = () => {
   const [cells, setCells] = useState<Cell[][]>(generateCells());
   const [smiley, setSmiley] = useState<Emoji>(Emoji.reverse);
   const [time, setTime] = useState<number>(0);
+  const [timeRuns, setTimeRuns] = useState<boolean>(false);
 
   const handleEvent = (event: React.MouseEvent): void => {
     event.preventDefault();
@@ -22,6 +23,38 @@ const App: React.FC = () => {
       setSmiley(Emoji.smile);
     }
   };
+  const handleCellClick = (row_: number, col_: number) => (
+    event: React.MouseEvent
+  ): void => {
+    if (!timeRuns) {
+      setTimeRuns(true);
+    }
+  };
+
+  const handleSmileyClick = (): void => {
+    if (timeRuns) {
+      setSmiley(Emoji.bored);
+      setTimeRuns(false);
+    }
+    if (smiley === Emoji.bored) {
+      setTimeRuns(false);
+      setTime(0);
+      setCells(generateCells());
+      setSmiley(Emoji.reverse);
+    }
+  };
+
+  useEffect(() => {
+    if (timeRuns) {
+      const timer = setInterval(() => {
+        setTime(time + 1);
+      }, 1000);
+
+      return () => {
+        clearInterval(timer);
+      };
+    }
+  }, [timeRuns, time]);
 
   const renderCells = (): React.ReactNode => {
     return cells.map((row, rowIndex) =>
@@ -32,7 +65,7 @@ const App: React.FC = () => {
           col={colIndex}
           state={cell.state}
           value={cell.value}
-          onClick={(e) => handleEvent(e)}
+          onClick={handleCellClick}
           onMouseDown={handleEvent}
           onMouseUp={handleEvent}
         />
@@ -44,8 +77,8 @@ const App: React.FC = () => {
     <div className="App">
       <div className="Header">
         <NumberDisplay value={0} />
-        <Smiley emoji={smiley} />
-        <NumberDisplay value={23} />
+        <Smiley emoji={smiley} onClick={handleSmileyClick} />
+        <NumberDisplay value={time} />
       </div>
       <div className="Body">{renderCells()}</div>
     </div>
