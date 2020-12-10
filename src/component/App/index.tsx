@@ -14,6 +14,7 @@ const App: React.FC = () => {
       row.map((cell, colIndex) => <Field key={`${rowIndex}-${colIndex}`} />)
     );
   };
+  console.log(cells); // tests if bombs are placed, works fine
 
   return (
     <div className="App">
