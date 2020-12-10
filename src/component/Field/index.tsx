@@ -7,9 +7,16 @@ interface IField {
   col: number;
   state: CellState;
   value: CellValue;
-  onClick: (row_: number, col_: number) => (event: React.MouseEvent) => void;
-  onMouseDown: (event: React.MouseEvent) => void;
-  onMouseUp: (event: React.MouseEvent) => void;
+  onClick: (
+    row_: number,
+    col_: number
+  ) => (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
+  onContextMenu: (
+    row_: number,
+    col_: number
+  ) => (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
+  onMouseDown: (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
+  onMouseUp: (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
 }
 
 const Field: React.FC<IField> = ({
@@ -18,6 +25,7 @@ const Field: React.FC<IField> = ({
   state,
   value,
   onClick,
+  onContextMenu,
   onMouseDown,
   onMouseUp,
 }) => {
@@ -45,10 +53,9 @@ const Field: React.FC<IField> = ({
 
   return (
     <div
-      className={`Field ${
-        state === CellState.hidden ? 'hidden' : 'revealed'
-      } value-${value}`}
+      className={`Field ${state} value-${value}`}
       onClick={onClick(row, col)}
+      onContextMenu={onContextMenu(row, col)}
       onMouseDown={onMouseDown}
       onMouseUp={onMouseUp}
     >
