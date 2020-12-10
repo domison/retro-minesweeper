@@ -13,11 +13,19 @@
     @include borders(#7b7b7b, white);
   }
 
-  &:hidden {
+  // revealed cell state
+  &.state-0 {
+    border-color: #7b7b7b;
+    border-width: 1px;
+  }
+
+  // hidden cell state
+  &.state-2 {
     @include borders;
   }
 
-  &.revealed {
+  // flagged cell state
+  &.state-3 {
     border-color: #7b7b7b;
     border-width: 1px;
   }

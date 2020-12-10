@@ -53,7 +53,7 @@ const Field: React.FC<IField> = ({
 
   return (
     <div
-      className={`Field ${state} value-${value}`}
+      className={`Field state-${state} value-${value}`}
       onClick={onClick(row, col)}
       onContextMenu={onContextMenu(row, col)}
       onMouseDown={onMouseDown}

@@ -3,7 +3,7 @@ import NumberDisplay from '../NumberDisplay';
 import Smiley from '../Smiley';
 import './App.scss';
 
-import { generateCells } from '../../utils';
+import { generateCells, openMultipleCells } from '../../utils';
 import Field from '../Field';
 import { Cell, CellState, CellValue, Emoji } from '../../types';
 
@@ -32,7 +32,6 @@ const App: React.FC = () => {
   ): void => {
     event.preventDefault();
 
-    const copiedCells = cells.slice();
     const clickedCell = cells[row_][col_];
 
     if (clickedCell.state !== CellState.hidden) {
@@ -42,6 +41,21 @@ const App: React.FC = () => {
     if (!timeRuns) {
       setTimeRuns(true);
     }
+
+    let newCells = cells.slice();
+
+    if (clickedCell.value === CellValue.bomb) {
+      // TODO: Let game be lost
+      return;
+    }
+
+    if (clickedCell.value !== CellValue.none) {
+      newCells[row_][col_].state = CellState.revealed;
+      return;
+    }
+
+    newCells = openMultipleCells(newCells, row_, col_);
+    setCells(newCells);
   };
 
   const handleCellContext = (row_: number, col_: number) => (
@@ -57,20 +71,20 @@ const App: React.FC = () => {
       setTimeRuns(true);
     }
 
-    const copiedCells = cells.slice();
+    const newCells = cells.slice();
     const clickedCell = cells[row_][col_];
 
     if (clickedCell.state === CellState.revealed) {
       return;
     }
     if (clickedCell.state === CellState.flagged) {
-      copiedCells[row_][col_].state = CellState.hidden;
+      newCells[row_][col_].state = CellState.hidden;
       setFlags(flags + 1);
     } else {
-      copiedCells[row_][col_].state = CellState.flagged;
+      newCells[row_][col_].state = CellState.flagged;
       setFlags(flags - 1);
     }
-    setCells(copiedCells);
+    setCells(newCells);
   };
 
   const handleSmileyClick = (): void => {
