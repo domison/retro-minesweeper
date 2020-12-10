@@ -7,9 +7,20 @@ interface IField {
   col: number;
   state: CellState;
   value: CellValue;
+  onClick: (event: React.MouseEvent) => void;
+  onMouseDown: (event: React.MouseEvent) => void;
+  onMouseUp: (event: React.MouseEvent) => void;
 }
 
-const Field: React.FC<IField> = ({ row, col, state, value }) => {
+const Field: React.FC<IField> = ({
+  row,
+  col,
+  state,
+  value,
+  onClick,
+  onMouseDown,
+  onMouseUp,
+}) => {
   const renderContent = (): ReactNode => {
     if (state === CellState.revealed) {
       if (value === CellValue.bomb) {
@@ -37,6 +48,9 @@ const Field: React.FC<IField> = ({ row, col, state, value }) => {
       className={`Field ${
         state === CellState.hidden ? 'hidden' : 'revealed'
       } value-${value}`}
+      onClick={onClick}
+      onMouseDown={onMouseDown}
+      onMouseUp={onMouseUp}
     >
       {renderContent()}
     </div>

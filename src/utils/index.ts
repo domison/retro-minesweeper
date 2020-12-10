@@ -52,26 +52,26 @@ function checkDirectNeighborhood(
 ): number {
   let numberOfBombs = 0;
 
-  const topLeftBomb = row > 0 && col > 0 ? cells[row - 1][col - 1] : null;
-  const topBomb = row > 0 ? cells[row - 1][col] : null;
-  const topRightBomb =
+  const topLeft = row > 0 && col > 0 ? cells[row - 1][col - 1] : null;
+  const top = row > 0 ? cells[row - 1][col] : null;
+  const topRight =
     row > 0 && col < MAX_COLS - 1 ? cells[row - 1][col + 1] : null;
-  const leftBomb = col > 0 ? cells[row][col - 1] : null;
-  const rightBomb = col < MAX_COLS - 1 ? cells[row][col + 1] : null;
-  const bottomLeftBomb =
+  const left = col > 0 ? cells[row][col - 1] : null;
+  const right = col < MAX_COLS - 1 ? cells[row][col + 1] : null;
+  const bottomLeft =
     row < MAX_ROWS - 1 && col > 0 ? cells[row + 1][col - 1] : null;
-  const bottomBomb = row < MAX_ROWS - 1 ? cells[row + 1][col] : null;
-  const bottomRightBomb =
+  const bottom = row < MAX_ROWS - 1 ? cells[row + 1][col] : null;
+  const bottomRight =
     row < MAX_ROWS - 1 && col < MAX_COLS - 1 ? cells[row + 1][col + 1] : null;
   const hood = [
-    topLeftBomb,
-    topBomb,
-    topRightBomb,
-    leftBomb,
-    rightBomb,
-    bottomLeftBomb,
-    bottomBomb,
-    bottomRightBomb,
+    topLeft,
+    top,
+    topRight,
+    left,
+    right,
+    bottomLeft,
+    bottom,
+    bottomRight,
   ];
 
   hood.forEach((bomb) => {
