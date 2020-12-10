@@ -4,10 +4,16 @@ import Smiley from '../Smiley';
 import './App.scss';
 
 import { generateCells } from '../../utils';
+import Field from '../Field';
 
 const App: React.FC = () => {
   const [cells, setCells] = useState(generateCells());
-  console.log(cells); // generateCells function works
+
+  const renderCells = (): React.ReactNode => {
+    return cells.map((row, rowIndex) =>
+      row.map((cell, colIndex) => <Field key={`${rowIndex}-${colIndex}`} />)
+    );
+  };
 
   return (
     <div className="App">
@@ -16,7 +22,7 @@ const App: React.FC = () => {
         <Smiley value={';D'} />
         <NumberDisplay value={23} />
       </div>
-      <div className="Body">Body</div>
+      <div className="Body">{renderCells()}</div>
     </div>
   );
 };
