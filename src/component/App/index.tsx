@@ -11,7 +11,15 @@ const App: React.FC = () => {
 
   const renderCells = (): React.ReactNode => {
     return cells.map((row, rowIndex) =>
-      row.map((cell, colIndex) => <Field key={`${rowIndex}-${colIndex}`} />)
+      row.map((cell, colIndex) => (
+        <Field
+          key={`${rowIndex}-${colIndex}`}
+          row={rowIndex}
+          col={colIndex}
+          state={cell.state}
+          value={cell.value}
+        />
+      ))
     );
   };
   console.log(cells); // tests if bombs are placed, works fine

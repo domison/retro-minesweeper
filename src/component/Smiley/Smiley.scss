@@ -3,12 +3,12 @@
 .Smiley {
   width: 52px;
   height: 52px;
-  font-size: 35px;
+  font-size: 30px;
   @include borders;
 
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-content: center;
 
   cursor: pointer;
 

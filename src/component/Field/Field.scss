@@ -3,9 +3,26 @@
 .Field {
   width: 30px;
   height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   @include borders;
 
   &:active {
     @include borders(#7b7b7b, white);
+  }
+
+  &:hidden {
+    @include borders;
+  }
+
+  &.revealed {
+    border-color: #7b7b7b;
+    border-width: 1px;
+  }
+
+  span {
+    margin-left: 2px;
+    font-size: 12px;
   }
 }
