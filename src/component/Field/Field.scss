@@ -3,6 +3,7 @@
 .Field {
   width: 30px;
   height: 30px;
+  font-weight: bolder;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -19,6 +20,31 @@
   &.revealed {
     border-color: #7b7b7b;
     border-width: 1px;
+  }
+
+  &.value-1 {
+    color: blue;
+  }
+  &.value-2 {
+    color: green;
+  }
+  &.value-3 {
+    color: red;
+  }
+  &.value-4 {
+    color: purple;
+  }
+  &.value-5 {
+    color: maroon;
+  }
+  &.value-6 {
+    color: turquoise;
+  }
+  &.value-7 {
+    color: black;
+  }
+  &.value-8 {
+    color: grey;
   }
 
   span {

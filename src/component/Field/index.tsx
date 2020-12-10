@@ -18,6 +18,8 @@ const Field: React.FC<IField> = ({ row, col, state, value }) => {
             {'💣'}
           </span>
         );
+      } else if (value === CellValue.none) {
+        return null;
       }
       return value;
     } else if (state === CellState.flagged) {
@@ -32,7 +34,9 @@ const Field: React.FC<IField> = ({ row, col, state, value }) => {
 
   return (
     <div
-      className={`Field ${state === CellState.hidden ? 'hidden' : 'revealed'}`}
+      className={`Field ${
+        state === CellState.hidden ? 'hidden' : 'revealed'
+      } value-${value}`}
     >
       {renderContent()}
     </div>
