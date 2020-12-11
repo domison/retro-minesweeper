@@ -17,7 +17,6 @@ const App: React.FC = () => {
   const [hasLost, setHasLost] = useState<boolean>(false);
   const [hasWon, setHasWon] = useState<boolean>(false);
 
-  // TODO: See whats rendering so often and fix issue -> its probably the timer???
   // TODO: Test win condition and scenario
   // TODO: Refactor code: Custom hooks, more DRY, faster function, more components
   // TODO: Rethink state management

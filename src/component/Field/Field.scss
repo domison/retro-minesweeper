@@ -3,7 +3,8 @@
 .Field {
   width: 30px;
   height: 30px;
-  font-weight: bolder;
+  font-weight: 800;
+  font-size: 22px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -60,11 +61,11 @@
   }
 
   &.bgColor-2 {
-    background-color: rgb(86, 126, 86);
+    background-color: green;
   }
 
   span {
     margin-left: 2px;
-    font-size: 12px;
+    font-size: 18px;
   }
 }
