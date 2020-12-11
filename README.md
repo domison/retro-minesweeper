@@ -1,6 +1,6 @@
-# Retro Minesweeper with React, TS & SASS [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+## Retro Minesweeper with React, TS & SASS [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 
-This little todo app is the first project I have built using vanilla JS.
+This little react app is a functioning clone from the popular minesweeper game, styled like it is 1999.
 
 ## Purpose
 
