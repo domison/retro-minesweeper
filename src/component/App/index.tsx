@@ -6,6 +6,7 @@ import './App.scss';
 import { generateCells, openMultipleCells } from '../../utils';
 import Field from '../Field';
 import { Background, Cell, CellState, CellValue, Emoji } from '../../types';
+import { MAX_COLS, MAX_ROWS } from '../../constants';
 
 const App: React.FC = () => {
   const [cells, setCells] = useState<Cell[][]>(generateCells());
@@ -66,6 +67,37 @@ const App: React.FC = () => {
       return;
     } else {
       newCells[row_][col_].state = CellState.revealed;
+    }
+
+    // Check to see if you have won
+    let safeOpenCellsExists = false;
+    for (let row = 0; row < MAX_ROWS; row++) {
+      for (let col = 0; col < MAX_COLS; col++) {
+        const currentCell = newCells[row][col];
+
+        if (
+          currentCell.value !== CellValue.bomb &&
+          currentCell.state === CellState.hidden
+        ) {
+          safeOpenCellsExists = true;
+          break;
+        }
+      }
+    }
+
+    if (!safeOpenCellsExists) {
+      newCells = newCells.map((row) =>
+        row.map((cell) => {
+          if (cell.value === CellValue.bomb) {
+            return {
+              ...cell,
+              state: CellState.flagged,
+            };
+          }
+          return cell;
+        })
+      );
+      setHasWon(true);
     }
 
     setCells(newCells);
@@ -144,20 +176,20 @@ const App: React.FC = () => {
   }, [hasWon]);
 
   const renderCells = (): React.ReactNode => {
-    let winCount = 0;
-    let probeWin = 0;
+    // let winCount = 0;
+    // let probeWin = 0;
 
     const newCells = cells.map((row, rowIndex) =>
       row.map((cell, colIndex) => {
-        if (cell.value === 0) {
-          winCount++;
-        }
-        if (
-          cell.value === CellValue.none &&
-          cell.state === CellState.revealed
-        ) {
-          probeWin++;
-        }
+        // if (cell.value === 0) {
+        //   winCount++;
+        // }
+        // if (
+        //   cell.value === CellValue.none &&
+        //   cell.state === CellState.revealed
+        // ) {
+        //   probeWin++;
+        // }
 
         return (
           <Field
@@ -175,9 +207,9 @@ const App: React.FC = () => {
         );
       })
     );
-    if (winCount === probeWin) {
-      setHasWon(true);
-    }
+    // if (winCount === probeWin) {
+    //   setHasWon(true);
+    // }
     return newCells;
   };
 
