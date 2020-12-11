@@ -12,15 +12,14 @@ So here you go, Pops, a retro Minesweeper clone for you to play on your smartpho
 
 ### Key concepts:
 
-- React Hooks & Router
+- React Hooks (& Router)
 - Typescript Enum types & Interfaces
-- Utility-First-Framework TailwindCSS
 - SASS/SCSS mixins & variables
 - CSS Grid, Flexbox
 
 ### Languages used:
 
-ReactJS / JSX / NodeJS / SASS / TailwindCSS
+ReactJS, TypeScript, JSX, NodeJS, SASS
 
 ### Tools used:
 
@@ -28,7 +27,7 @@ VSCode, EsLint, Prettier, Git, Chrome DevTools
 
 ### Live Demo
 
-[Find a demo of the app @doms.world](https://doms.world/minesweeper)
+[Find a demo of the app @doms.world](https://doms.world/retro-minesweeper)
 
 ## License
 
